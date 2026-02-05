@@ -1,7 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --brand: 147 51 234; /* purple-600 */
-  --bg: 250 250 250;   /* neutral-50 */
-  --fg: 23 23 23;      /* neutral-900 */
+@theme {
+  /* =========================
+     BRAND / IDENTITY
+     ========================= */
+
+  /* Deep indigo — main brand colour (headings, primary buttons) */
+  --color-primary: #49416D;
+
+  /* Soft purple — secondary brand highlight */
+  --color-primary-light: #A882DD;
+
+  /* Coral — warnings, “cut”, destructive emphasis */
+  --color-accent: #E08D79;
+
+  /* =========================
+     BACKGROUNDS
+     ========================= */
+
+  /* Very soft mint — main page background */
+  --color-bg-main: #E0EFDE;
+
+  /* Stronger mint — cards, gradient layers */
+  --color-bg-soft: #B3F2DD;
+
+  /* White — surfaces */
+  --color-bg-white: #FFFFFF;
+
+  /* =========================
+     TEXT
+     ========================= */
+
+  /* Primary text colour */
+  --color-text-main: #49416D;
+
+  /* Muted text (paragraphs, helper text) */
+  --color-text-muted: #6B6B6B;
+
+  /* =========================
+     BORDERS / UI
+     ========================= */
+
+  /* Neutral border colour */
+  --color-border: #D8D8D8;
+
+  /* =========================
+     RADIUS
+     ========================= */
+
+  --radius-lg: 12px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  @apply bg-bg-main text-text-main;
 }
