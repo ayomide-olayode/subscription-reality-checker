@@ -4,9 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { navItems } from "@/lib/config/nav";
 import { cn } from "@/lib/cn";
+import LogoutButton from "@/components/layout/LogoutButton";
+
 
 export default function Sidebar() {
   const pathname = usePathname();
+
+    
 
   return (
     <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-neutral-200 bg-white lg:block">
@@ -48,6 +52,7 @@ export default function Sidebar() {
         <div className="mt-auto border-t border-neutral-200 p-4">
           <div className="text-xs text-neutral-600">
             You’ll add user menu + logout here.
+            <LogoutButton />
           </div>
         </div>
       </div>
