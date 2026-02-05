@@ -1,5 +1,26 @@
-import { NextResponse, type NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
+
+function isPublicPath(pathname: string) {
+  // public routes (welcome + auth)
+  return (
+    pathname === "/" ||
+    pathname.startsWith("/login") ||
+    pathname.startsWith("/signup") ||
+    pathname.startsWith("/auth") // if you have callbacks
+  );
+}
+
+function isProtectedPath(pathname: string) {
+  // everything in the app after auth
+  return (
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/subscriptions") ||
+    pathname.startsWith("/settings") ||
+    pathname.startsWith("/checkins")
+  );
+}
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
@@ -21,40 +42,32 @@ export async function middleware(req: NextRequest) {
     }
   );
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data } = await supabase.auth.getSession();
+  const session = data.session;
+  const { pathname, search } = req.nextUrl;
 
-  const pathname = req.nextUrl.pathname;
-
-  const isAppRoute = pathname.startsWith("/dashboard") || pathname.startsWith("/subscriptions") || pathname.startsWith("/settings");
-  const isAuthRoute = pathname.startsWith("/login") || pathname.startsWith("/signup");
-
-  // Protect app routes
-  if (isAppRoute && !session) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("next", pathname);
-    return NextResponse.redirect(url);
+  // If user is logged out and tries protected path → redirect to login
+  if (!session && isProtectedPath(pathname)) {
+    const loginUrl = req.nextUrl.clone();
+    loginUrl.pathname = "/login";
+    loginUrl.searchParams.set("next", pathname + search);
+    return NextResponse.redirect(loginUrl);
   }
 
-  // If logged in, keep them out of auth pages
-  if (isAuthRoute && session) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(url);
-  }
-
-  // Welcome page behaviour: logged in -> dashboard
-  if (pathname === "/" && session) {
-    const url = req.nextUrl.clone();
-    url.pathname = "/dashboard";
-    return NextResponse.redirect(url);
+  // If user is logged in and tries login/signup → redirect to dashboard
+  if (session && isPublicPath(pathname) && (pathname.startsWith("/login") || pathname.startsWith("/signup"))) {
+    const dash = req.nextUrl.clone();
+    dash.pathname = "/dashboard";
+    dash.search = "";
+    return NextResponse.redirect(dash);
   }
 
   return res;
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico).*)"],
+  matcher: [
+    // run middleware for everything except static files
+    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|webp|gif|ico)$).*)",
+  ],
 };

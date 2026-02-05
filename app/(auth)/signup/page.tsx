@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +22,9 @@ type FormValues = z.infer<typeof schema>;
 
 export default function SignupPage() {
   const router = useRouter();
+  const search = useSearchParams();
+
+  const next = search.get("next") || "/dashboard";
 
   const {
     register,
@@ -31,14 +34,18 @@ export default function SignupPage() {
   } = useForm<FormValues>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (values: FormValues) => {
-    const { error } = await signUpWithEmail(values.email, values.password, values.name);
+    const { error } = await signUpWithEmail(
+      values.email,
+      values.password,
+      values.name
+    );
 
     if (error) {
       setError("root", { message: error.message });
       return;
     }
 
-    router.push("/login?signup=success");
+    router.push(`/login?signup=success&next=${encodeURIComponent(next)}`);
   };
 
   return (
@@ -73,7 +80,9 @@ export default function SignupPage() {
       }
     >
       <h1 className="text-xl font-semibold text-primary">Create your account</h1>
-      <p className="mt-2 text-sm text-text-muted">Use your name, email and password.</p>
+      <p className="mt-2 text-sm text-text-muted">
+        Use your name, email and password.
+      </p>
 
       <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
         {errors.root?.message ? (
@@ -85,12 +94,20 @@ export default function SignupPage() {
 
         <div className="space-y-2">
           <label className="text-xs font-semibold text-primary">Name</label>
-          <Input placeholder="Your name" {...register("name")} error={errors.name?.message} />
+          <Input
+            placeholder="Your name"
+            {...register("name")}
+            error={errors.name?.message}
+          />
         </div>
 
         <div className="space-y-2">
           <label className="text-xs font-semibold text-primary">Email</label>
-          <Input placeholder="you@example.com" {...register("email")} error={errors.email?.message} />
+          <Input
+            placeholder="you@example.com"
+            {...register("email")}
+            error={errors.email?.message}
+          />
         </div>
 
         <div className="space-y-2">
@@ -113,7 +130,10 @@ export default function SignupPage() {
 
         <p className="text-sm text-text-muted">
           Already have an account?{" "}
-          <Link className="font-semibold text-primary-light" href="/login">
+          <Link
+            className="font-semibold text-primary-light"
+            href={`/login?next=${encodeURIComponent(next)}`}
+          >
             Log in
           </Link>
         </p>

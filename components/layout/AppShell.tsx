@@ -1,10 +1,14 @@
-import Sidebar from "./Sidebar";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-dvh bg-bg-main">
       <Sidebar />
-      <div className="lg:pl-64">{children}</div>
+
+      {/* main area */}
+      <div className="lg:pl-64">
+        {children}
+      </div>
     </div>
   );
 }

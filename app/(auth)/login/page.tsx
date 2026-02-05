@@ -41,7 +41,7 @@ export default function LoginPage() {
       return;
     }
 
-    router.push(next);
+    router.replace(next);
   };
 
   return (
@@ -86,7 +86,11 @@ export default function LoginPage() {
       <form className="mt-6 space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <label className="text-xs font-semibold text-primary">Email</label>
-          <Input placeholder="you@example.com" {...register("email")} error={errors.email?.message} />
+          <Input
+            placeholder="you@example.com"
+            {...register("email")}
+            error={errors.email?.message}
+          />
         </div>
 
         <div className="space-y-2">
@@ -109,7 +113,10 @@ export default function LoginPage() {
 
         <p className="text-sm text-text-muted">
           New here?{" "}
-          <Link className="font-semibold text-primary-light" href="/signup">
+          <Link
+            className="font-semibold text-primary-light"
+            href={`/signup?next=${encodeURIComponent(next)}`}
+          >
             Create an account
           </Link>
         </p>

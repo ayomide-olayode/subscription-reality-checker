@@ -1,5 +1,10 @@
-import AppShell from "@/components/layout/AppShell";
+import Sidebar from "@/components/layout/Sidebar";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
-  return <AppShell>{children}</AppShell>;
+  return (
+    <div className="min-h-dvh bg-bg-main">
+      <Sidebar />
+      <div className="lg:pl-64">{children}</div>
+    </div>
+  );
 }

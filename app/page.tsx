@@ -43,14 +43,14 @@ export default function WelcomePage() {
 
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 {/* Button (primary) */}
-                <Link href="/signup" className="inline-block">
+                <Link href="/signup?next=/dashboard" className="inline-block">
                   <Button className="bg-primary text-white hover:bg-primary-light">
                     Create account
                   </Button>
                 </Link>
 
                 {/* Button (secondary) */}
-                <Link href="/login" className="inline-block">
+                <Link href="/login?next=/dashboard" className="inline-block">
                   <Button
                     variant="secondary"
                     className="border border-border bg-bg-white text-primary hover:bg-bg-soft"
