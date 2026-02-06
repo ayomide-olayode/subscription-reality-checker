@@ -179,7 +179,7 @@ Subscriptions renewing within the next 14 days are highlighted to prevent surpri
 ---
 
 ## 📂 Folder Structure Overview
-.
+```
 ├── app/
 │ ├── (auth)/
 │ │ ├── login/
@@ -241,6 +241,8 @@ Subscriptions renewing within the next 14 days are highlighted to prevent surpri
 ├── tsconfig.json
 ├── package.json
 └── README.md
+
+```
 
 Separation of concerns:
 
