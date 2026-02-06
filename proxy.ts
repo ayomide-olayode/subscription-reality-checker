@@ -5,10 +5,10 @@ import { createServerClient } from "@supabase/ssr";
 function isPublicPath(pathname: string) {
   // public routes (welcome + auth)
   return (
-    pathname === "/" ||
+    // if you have callbacks
+    (pathname === "/" ||
     pathname.startsWith("/login") ||
-    pathname.startsWith("/signup") ||
-    pathname.startsWith("/auth") // if you have callbacks
+    pathname.startsWith("/signup") || pathname.startsWith("/auth"))
   );
 }
 
@@ -22,7 +22,7 @@ function isProtectedPath(pathname: string) {
   );
 }
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const res = NextResponse.next();
 
   const supabase = createServerClient(
