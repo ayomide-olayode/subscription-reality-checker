@@ -14,9 +14,9 @@ export default function Sidebar() {
       <div className="flex h-dvh flex-col">
         <div className="px-6 py-6">
           <div className="text-sm font-semibold text-primary">
-            Subscription Reality Checker
+            WORTHIT
           </div>
-          <div className="mt-1 text-xs text-text-muted">SaaS demo</div>
+          <div className="mt-1 text-xs text-text-muted">Subscription Reality Checker</div>
         </div>
 
         <nav className="px-3 overflow-y-auto">

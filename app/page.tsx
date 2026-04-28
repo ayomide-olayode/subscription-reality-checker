@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -5,11 +6,11 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export default function WelcomePage() {
   return (
-    <main className="relative min-h-[100dvh] overflow-x-hidden bg-bg-main">
+    <main className="relative min-h-dvh overflow-x-hidden bg-bg-main">
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-linear-to-b from-bg-soft to-transparent" />
-        <div className="absolute -top-48 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-primary-light/25 blur-3xl sm:h-96 sm:w-96 lg:h-[520px] lg:w-[520px]" />
+        <div className="absolute -top-48 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-primary-light/25 blur-3xl sm:h-96 sm:w-96 lg:h-130 lg:w-130" />
         <div className="absolute -bottom-56 -right-48 h-96 w-96 rounded-full bg-accent/15 blur-3xl" />
       </div>
 
@@ -22,12 +23,12 @@ export default function WelcomePage() {
           <div className="flex justify-center">
             <Badge className="gap-2 border border-border bg-bg-white text-primary">
               <span className="h-1.5 w-1.5 rounded-full bg-primary-light" />
-              Subscription Reality Checker
+              WORTHIT
             </Badge>
           </div>
 
           {/* Hero */}
-          <div className="mx-auto mt-8 max-w-[22rem] text-center sm:max-w-xl">
+          <div className="mx-auto mt-8 max-w-88 text-center sm:max-w-xl">
             <h1 className="text-4xl font-semibold leading-[1.05] tracking-tight text-primary sm:text-5xl">
               See what you pay for.
               <span className="mt-2 block text-primary-light">
@@ -71,7 +72,7 @@ export default function WelcomePage() {
               ].map((item) => (
                 <Card
                   key={item.title}
-                  className="min-w-[260px] border-border bg-bg-white sm:min-w-0"
+                  className="min-w-65 border-border bg-bg-white sm:min-w-0"
                 >
                   <CardContent className="p-4">
                     <p className="text-sm font-semibold text-primary">
@@ -145,7 +146,7 @@ export default function WelcomePage() {
           {/* Badge */}
           <Badge className="gap-2 border border-border bg-bg-white text-primary">
             <span className="h-1.5 w-1.5 rounded-full bg-primary-light" />
-            Subscription Reality Checker
+            WORTH&apos;IT - Subscription Reality Checker
           </Badge>
 
           <div className="mt-10 grid gap-14 lg:grid-cols-2 lg:items-center">

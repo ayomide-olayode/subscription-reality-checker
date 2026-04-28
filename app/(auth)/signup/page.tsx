@@ -1,10 +1,18 @@
 import SignupForm from "./SignupForm";
 
-export default function SignupPage({
+type SearchParams = {
+  next?: string | string[];
+};
+
+export default async function SignupPage({
   searchParams,
 }: {
-  searchParams?: { next?: string };
+  searchParams?: Promise<SearchParams>;
 }) {
-  const next = searchParams?.next ?? "/dashboard";
+  const sp = searchParams ? await searchParams : undefined;
+
+  const next =
+    typeof sp?.next === "string" ? sp.next : "/dashboard";
+
   return <SignupForm nextUrl={next} />;
 }
